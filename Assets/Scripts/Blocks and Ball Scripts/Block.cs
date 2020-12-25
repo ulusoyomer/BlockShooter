@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private int count;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (transform.position.y <= -10)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetStartingCount(int count)
+    {
+        this.count = count;
+    }
+
+    private void OnCollisionEnter2D(Collision2D target)
+    {
+        switch (target.collider.name)
+        {
+            case "Ball":
+                if (count > 0)
+                {
+                    count--;
+                    if (count == 0)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
