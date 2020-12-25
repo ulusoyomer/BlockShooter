@@ -16,14 +16,15 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.DeleteKey("Level");
         Physics2D.gravity = new Vector2(0, -17);
-        SpawnNewLevel(0, 17, 3, 5);
+        SpawnLevel();
     }
 
 
     void Update()
     {
-
+        CheckBlocks();
     }
 
     void SpawnNewLevel(int numberLevel1, int numberLevel2, int min, int max)
@@ -48,6 +49,61 @@ public class GameController : MonoBehaviour
         {
             int count = Random.Range(min, max);
             block[i].GetComponent<Block>().SetStartingCount(count);
+        }
+    }
+
+    void SpawnLevel()
+    {
+        switch (PlayerPrefs.GetInt("Level", 0))
+        {
+            case 0:
+                SpawnNewLevel(0, 17, 3, 5);
+                break;
+            case 1:
+                SpawnNewLevel(1, 18, 3, 5);
+                break;
+            case 2:
+                SpawnNewLevel(2, 19, 3, 6);
+                break;
+            case 3:
+                SpawnNewLevel(5, 20, 4, 7);
+                break;
+            case 4:
+                SpawnNewLevel(12, 28, 5, 8);
+                break;
+            case 5:
+                SpawnNewLevel(14, 29, 7, 10);
+                break;
+            case 6:
+                SpawnNewLevel(15, 30, 6, 12);
+                break;
+            case 7:
+                SpawnNewLevel(16, 31, 9, 15);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    void CheckBlocks()
+    {
+        block = GameObject.FindGameObjectsWithTag("Block");
+        if (block.Length < 1)
+        {
+            RemoveBalls();
+            PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level", 0) + 1);
+            SpawnLevel();
+        }
+    }
+
+    void RemoveBalls()
+    {
+        var balls = GameObject.FindGameObjectsWithTag("Ball");
+
+        foreach (var item in balls)
+        {
+            Destroy(item);
         }
     }
 }
