@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     private Vector2 level1Pos;
     private Vector2 level2Pos;
 
+    public int shotCount;
     void Start()
     {
         PlayerPrefs.DeleteKey("Level");
@@ -29,7 +30,11 @@ public class GameController : MonoBehaviour
 
     void SpawnNewLevel(int numberLevel1, int numberLevel2, int min, int max)
     {
-        Camera.main.GetComponent<CameraTransitions>().RotateCameraToFront();
+        if (shotCount > 1)
+        {
+            Camera.main.GetComponent<CameraTransitions>().RotateCameraToFront();
+        }
+        shotCount = 1;
 
         level1Pos = new Vector2(3.5f, 1);
         level2Pos = new Vector2(3.5f, -3.4f);
