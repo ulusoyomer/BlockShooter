@@ -58,6 +58,7 @@ public class ShootScript : MonoBehaviour
             aiming = false;
             HideDots();
             StartCoroutine(Shoot());
+            Camera.main.GetComponent<CameraTransitions>().RotateCameraToSide();
         }
     }
 
