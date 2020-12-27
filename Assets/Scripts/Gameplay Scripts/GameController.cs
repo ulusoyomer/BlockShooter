@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    private ShootCountText shootCountText;
+
     public List<GameObject> levels;
 
     public GameObject[] block;
@@ -15,6 +17,12 @@ public class GameController : MonoBehaviour
     private Vector2 level2Pos;
 
     public int shotCount;
+
+    private void Awake()
+    {
+        shootCountText = GameObject.Find("ShotCountText").GetComponent<ShootCountText>();
+    }
+
     void Start()
     {
         PlayerPrefs.DeleteKey("Level");
@@ -113,4 +121,29 @@ public class GameController : MonoBehaviour
             Destroy(item);
         }
     }
+
+    public void ChechShotCount()
+    {
+        switch (shotCount)
+        {
+            case 1:
+                shootCountText.TopText = "Shot";
+                shootCountText.BottomText = "1/3";
+                shootCountText.Flash();
+                break;
+            case 2:
+                shootCountText.TopText = "Shot";
+                shootCountText.BottomText = "2/3";
+                shootCountText.Flash();
+                break;
+            case 3:
+                shootCountText.TopText = "Shot";
+                shootCountText.BottomText = "3/3";
+                shootCountText.Flash();
+                break;
+            default:
+                break;
+        }
+    }
+
 }
