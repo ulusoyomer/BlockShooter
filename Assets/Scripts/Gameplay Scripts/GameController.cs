@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     private ShootCountText shootCountText;
+    public Text ballsCountText;
 
     public List<GameObject> levels;
 
@@ -17,15 +19,19 @@ public class GameController : MonoBehaviour
     private Vector2 level2Pos;
 
     public int shotCount;
+    public int ballsCount;
 
     private void Awake()
     {
         shootCountText = GameObject.Find("ShotCountText").GetComponent<ShootCountText>();
+        ballsCountText = GameObject.Find("BallCountText").GetComponent<Text>();
     }
 
     void Start()
     {
         PlayerPrefs.DeleteKey("Level");
+        ballsCount = PlayerPrefs.GetInt("BallsCount",5);
+        ballsCountText.text = ballsCount.ToString();
         Physics2D.gravity = new Vector2(0, -17);
         SpawnLevel();
     }
@@ -137,7 +143,7 @@ public class GameController : MonoBehaviour
                 shootCountText.Flash();
                 break;
             case 3:
-                shootCountText.TopText = "Shot";
+                shootCountText.TopText = "Final Shot";
                 shootCountText.BottomText = "3/3";
                 shootCountText.Flash();
                 break;

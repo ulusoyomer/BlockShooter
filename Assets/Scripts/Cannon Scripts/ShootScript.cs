@@ -125,7 +125,7 @@ public class ShootScript : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < gc.ballsCount; i++)
         {
             yield return new WaitForSeconds(0.07f);
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
@@ -133,7 +133,12 @@ public class ShootScript : MonoBehaviour
             ball.transform.SetParent(ballsContainer.transform);
             ballBody = ball.GetComponent<Rigidbody2D>();
             ballBody.AddForce(ShootForce(Input.mousePosition));
+
+            var balls = gc.ballsCount - i;
+            gc.ballsCountText.text = (gc.ballsCount - i - 1).ToString();
         }
+        yield return new WaitForSeconds(0.5f);
         gc.shotCount++;
+        gc.ballsCountText.text = gc.ballsCount.ToString();
     }
 }
