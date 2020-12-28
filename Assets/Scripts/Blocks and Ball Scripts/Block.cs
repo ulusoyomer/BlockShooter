@@ -8,16 +8,13 @@ public class Block : MonoBehaviour
     private int count;
     public Text countText;
 
+    private AudioSource bounceSound;
+
     private void Awake()
     {
         countText = gameObject.transform.GetChild(0).GetChild(0).GetComponent<Text>();
+        bounceSound = GameObject.Find("BounceSound").GetComponent<AudioSource>();
     }
-
-    void Start()
-    {
-        
-    }
-
     
     void Update()
     {
@@ -43,6 +40,7 @@ public class Block : MonoBehaviour
                     count--;
                     Camera.main.GetComponent<CameraTransitions>().Shake();
                     countText.text = count.ToString();
+                    bounceSound.Play();
                     if (count == 0)
                     {
                         Destroy(gameObject);
