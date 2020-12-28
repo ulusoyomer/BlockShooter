@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ShootScript : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class ShootScript : MonoBehaviour
     void Update()
     {
         ballBody = ballPrefab.GetComponent<Rigidbody2D>();
-        if (gc.shotCount <=3)
+        if (gc.shotCount <=3 && !isMouseOverUI())
         {
             Aim();
             Rotate();
@@ -106,6 +107,11 @@ public class ShootScript : MonoBehaviour
         {
             projectilePath[i].GetComponent<Renderer>().enabled = true;
         }
+    }
+
+    bool isMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     void HideDots()
