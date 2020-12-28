@@ -9,11 +9,10 @@ public class ShootScript : MonoBehaviour
     private GameController gc;
 
     public float power = 2;
-    private int dots = 15;
 
     private Vector2 startPos;
 
-    private bool shoot, aiming;
+    private bool shoot,aiming;
 
     private GameObject Dots;
     private List<GameObject> projectilePath;
